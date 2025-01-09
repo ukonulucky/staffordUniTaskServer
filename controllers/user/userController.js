@@ -39,7 +39,7 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
     const { email: createdEmail } = registeredUser
     /* endpoint to verify email */
     const emailVerificationToken = registeredUser.createEmailVerificationToken()
-     const verifyEmailEndpoint = process.env.CLIENT_URL + "emailVerify/" + emailVerificationToken 
+     const verifyEmailEndpoint = process.env.SERVER_URL + "emailVerify/" + createdEmail + "/"+ emailVerificationToken 
     const message = "Please click here " + verifyEmailEndpoint + " to verify your email"
     /* 
        const { subject,to, emailTemplate} = options; 
@@ -86,7 +86,9 @@ mailSender(message,createdEmail,"Registration")
 /* verify user email */
 
 const verifyEmailController = expressAsyncHandler(async(req, res) => { 
-    const { email, token } = req.body
+    const { email, token } = req.params
+    console.log(req.params)
+    
     if (!token || !email) { 
       throw new Error("Missing credentials")
     }
@@ -104,12 +106,7 @@ const verifyEmailController = expressAsyncHandler(async(req, res) => {
     foundUser.accountVerificationToken = null
     await foundUser.save()
 
-    res.status(200).json({
-       status: true,
-        message: "email verified successfully"
-    })
-
-
+    res.redirect(process.env.CLIENT_URL)
 
 })
 
@@ -191,7 +188,7 @@ const getAllUsersController= expressAsyncHandler(async(req,res) => {
     try {
 
         console.log("ran")
-        sendBrevoEmail()
+      
     const users = await UserModel.find()
     return res.status(201).json({
       status:"success",
@@ -326,6 +323,77 @@ const isTokenValid =  foundUser.isPasswordResetTokenValid(token)
 })
 
 
+
+
+const deleteUserController = expressAsyncHandler(async (req, res) => {
+
+    const {id} = req.params;
+  
+    // check if email and password are sent
+    if (!id) {
+      throw new Error("Missing credentials");
+    }
+  
+    // find user
+  
+    const foundUser = await UserModel.findById(id);
+  
+    if (foundUser) {
+      throw new Error("User already exists");
+    }
+  
+  
+      const registeredUser = await UserModel.create({
+           password, email, fullName, role
+      })
+  
+  
+      const { email: createdEmail } = registeredUser
+      /* endpoint to verify email */
+      const emailVerificationToken = registeredUser.createEmailVerificationToken()
+       const verifyEmailEndpoint = process.env.CLIENT_URL + "emailVerify/?" + "user" + emailVerificationToken 
+      const message = "Please click here " + verifyEmailEndpoint + " to verify your email"
+      /* 
+         const { subject,to, emailTemplate} = options; 
+      */
+      
+     
+    
+    await registeredUser.save()
+      /* send email for verification */
+     /*  const option2 = {
+          subject: "Account creation",
+          emailTemplate: "Thank You " + createdEmail + "for sigining up, an email verifcation mail will be sent shortly" ,
+          to: [{
+              email: createdEmail,
+              name:fullName
+          }]
+      } */
+  
+  
+   /*    sendBrevoEmail(option2) */
+      const option = {
+          subject: "Email Verification",
+          emailTemplate:"Please click here " + verifyEmailEndpoint + " to verify your email",
+          to:[{
+              email: createdEmail,
+              name:fullName
+          }]
+      }
+  
+      sendBrevoEmail(option)
+     
+  /* 
+  mailSender(message,createdEmail,"Registration")
+   */
+  
+    return res.status(201).json({
+      status: "success",
+      message: "Please verify your email",
+        data: registeredUser,
+      meta: message
+    });
+  });
 
 
 module.exports = { userRegisterController, userLoginController, userAuthticateController, getAllUsersController, getSingleUserController, logOutUserController, verifyEmailController, forgotPasswordController, changePasswordController };
