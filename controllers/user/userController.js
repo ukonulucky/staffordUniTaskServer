@@ -124,12 +124,12 @@ const userLoginController = expressAsyncHandler(async(req,res, next) => {
 
     const isPasswordCorrect = await user.comparePassword(password)
     
-  
+  console.log(isPasswordCorrect, "value obtained")
     if (!user || !isPasswordCorrect) { 
         throw new Error("Invalid login credential");
     }
 
-    const { isEmailVerified,accountVerificationToken  } = user
+    const { isEmailVerified,accountVerificationToken, fullName  } = user
     if (!isEmailVerified) { 
         const verifyEmailEndpoint = process.env.SERVER_URL + "/api/v1/user" + "/emailVerify/" + email + "/"+ accountVerificationToken
         
