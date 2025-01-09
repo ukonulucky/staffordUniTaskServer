@@ -29,7 +29,7 @@ const imageUrl = req.file.path.toString()
     
     const registeredRestaurant = await restaurantModel.create({
         restaurantName, about, location, phone,
-        gallery:req.file
+        gallery:imageUrl
     })
 
   return res.status(201).json({
