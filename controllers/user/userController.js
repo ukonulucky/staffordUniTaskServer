@@ -274,14 +274,25 @@ const forgotPasswordController = expressAsyncHandler(async(req, res) => {
     /* generate 5 digit code */
 
    const code  = foundUser.createPasswordResetCode()
-   
+    const { email:userEmail, fullName} = foundUser
     
      await foundUser.save()
-const message = "Please use this OTP " + code + " to change password. OTP expires in one hour" 
+const message = "Please use this OTP " + code + " to change your password. OTP expires in one hour" 
+
+const option = {
+    subject: "Forgot Password",
+    emailTemplate:message,
+    to:[{
+        email: userEmail,
+        name:fullName
+    }]
+}
+
+sendBrevoEmail(option)  
    /*  mailSender() */
     res.status(200).json({
         error: false,
-        message: "OTP code sent to your mail", 
+        message: "Hi, a chnage passwoord OTP has been sent to your mail", 
         meta: message
     })
 
