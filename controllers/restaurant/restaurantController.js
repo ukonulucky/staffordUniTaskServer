@@ -28,7 +28,8 @@ const restaurantRegisterController = expressAsyncHandler(async (req, res) => {
   }
     
     const registeredRestaurant = await restaurantModel.create({
-        restaurantName,about, location, phone
+        restaurantName, about, location, phone,
+        gallery:req.file
     })
 
   return res.status(201).json({
