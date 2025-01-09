@@ -324,16 +324,9 @@ const changePasswordController = expressAsyncHandler(async(req, res) => {
 const isTokenValid =  foundUser.isPasswordResetTokenValid(token)
    
     if (!isTokenValid) { 
-     return   res.status(200).json({
-         error: false,
-         status: false,
-            message: "Incorrect or expired OTP", 
-         
-        })
+        throw new Error("Incorrect or expired OTP")
     }
         
-
-
     const { email: emailSaved, fullName} = foundUser
     foundUser.password = password
     foundUser.passwordResetExpires = null
