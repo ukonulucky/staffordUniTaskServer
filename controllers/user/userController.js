@@ -334,12 +334,23 @@ const isTokenValid =  foundUser.isPasswordResetTokenValid(token)
         
 
 
-    
+    const { email: emailSaved, fullName} = foundUser
     foundUser.password = password
     foundUser.passwordResetExpires = null
     foundUser.passwordResetToken = null
-    
+
     await foundUser.save()
+
+    const option = {
+        subject: "Password Updated",
+        emailTemplate:"Your password has been updated successfully",
+        to:[{
+            email: emailSaved,
+            name:fullName
+        }]
+    }
+
+    sendBrevoEmail(option)  
 
     res.status(200).json({
         error: false,
