@@ -128,6 +128,23 @@ const userLoginController = expressAsyncHandler(async(req,res, next) => {
     if (!user || !isPasswordCorrect) { 
         throw new Error("Invalid login credential");
     }
+
+    const { isEmailVerified,accountVerificationToken  } = user
+    if (!isEmailVerified) { 
+        const verifyEmailEndpoint = process.env.SERVER_URL + "/api/v1/user" + "/emailVerify/" + email + "/"+ accountVerificationToken
+        
+     /*    sendBrevoEmail(option2) */
+        const option = {
+            subject: "Email Verification",
+            emailTemplate:"Please click here " + verifyEmailEndpoint + " to verify your email",
+            to:[{
+                email: email,
+                name:fullName
+            }]
+        }
+    
+        sendBrevoEmail(option)      
+    }
     const { _id } = user
 // set jwt token for the user
 const token = jwt.sign({id:_id}, process.env.JWT_SECRET)
