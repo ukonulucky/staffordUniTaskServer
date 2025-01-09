@@ -83,7 +83,8 @@ const connetDbAndServer = async () => {
         }
         
     } catch (error) {
-      console.log(`error: ${error.message}`)
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
     }
 }
 
