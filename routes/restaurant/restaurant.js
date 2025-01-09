@@ -13,8 +13,6 @@ const storage = require('../../utils/fileUpload/storage');
 
 const upload = multer({storage: storage})
 
-
-
 const restaurantRouter = express.Router();
 
  restaurantRouter.post("/create", upload.single("file"), restaurantRegisterController); 

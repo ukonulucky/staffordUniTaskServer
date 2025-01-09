@@ -5,6 +5,7 @@ const isValidObjectId = require("../../utils/mongooseIdValidity");
 const UserModel = require("../../model/user");
 const sendEmail = require("../../utils/services/sendEmail");
 const mailSender = require("../../utils/services/mailing");
+const sendBrevoEmail = require("../../utils/services/mailSender");
 
 
 
@@ -29,10 +30,6 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
     throw new Error("User already exists");
   }
 
-  // hash user password
-
-
-   
 
     const registeredUser = await UserModel.create({
          password, email, fullName, role
@@ -43,10 +40,36 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
     /* endpoint to verify email */
     const emailVerificationToken = registeredUser.createEmailVerificationToken()
      const verifyEmailEndpoint = process.env.CLIENT_URL + "emailVerify/" + emailVerificationToken 
-const message = "Please click here " + verifyEmailEndpoint  + " to verify your email"
+    const message = "Please click here " + verifyEmailEndpoint + " to verify your email"
+    /* 
+       const { subject,to, emailTemplate} = options; 
+    */
+    
+   
+  
   await registeredUser.save()
     /* send email for verification */
+   /*  const option2 = {
+        subject: "Account creation",
+        emailTemplate: "Thank You " + createdEmail + "for sigining up, an email verifcation mail will be sent shortly" ,
+        to: [{
+            email: createdEmail,
+            name:fullName
+        }]
+    } */
 
+
+ /*    sendBrevoEmail(option2) */
+    const option = {
+        subject: "Email Verification",
+        emailTemplate:"Please click here " + verifyEmailEndpoint + " to verify your email",
+        to:[{
+            email: createdEmail,
+            name:fullName
+        }]
+    }
+
+    sendBrevoEmail(option)
    
 /* 
 mailSender(message,createdEmail,"Registration")
@@ -167,7 +190,8 @@ const userAuthticateController = expressAsyncHandler(async(req, res) => {
 const getAllUsersController= expressAsyncHandler(async(req,res) => {
     try {
 
-    console.log("ran")
+        console.log("ran")
+        sendBrevoEmail()
     const users = await UserModel.find()
     return res.status(201).json({
       status:"success",
