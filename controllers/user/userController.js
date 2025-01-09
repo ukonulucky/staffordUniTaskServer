@@ -39,7 +39,7 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
     const { email: createdEmail } = registeredUser
     /* endpoint to verify email */
     const emailVerificationToken = registeredUser.createEmailVerificationToken()
-     const verifyEmailEndpoint = process.env.SERVER_URL + "emailVerify/" + createdEmail + "/"+ emailVerificationToken 
+     const verifyEmailEndpoint = process.env.SERVER_URL + "/emailVerify/" + createdEmail + "/"+ emailVerificationToken 
     const message = "Please click here " + verifyEmailEndpoint + " to verify your email"
     /* 
        const { subject,to, emailTemplate} = options; 
@@ -187,8 +187,7 @@ const userAuthticateController = expressAsyncHandler(async(req, res) => {
 const getAllUsersController= expressAsyncHandler(async(req,res) => {
     try {
 
-        console.log("ran")
-      
+    
     const users = await UserModel.find()
     return res.status(201).json({
       status:"success",
