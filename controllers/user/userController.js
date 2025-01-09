@@ -1,7 +1,7 @@
 const expressAsyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt =require("jsonwebtoken");
-const isValidObjectId = require("../../utils/MongooseIdValidity");
+const isValidObjectId = require("../../utils/mongooseIdValidity");
 const UserModel = require("../../model/user");
 const sendEmail = require("../../utils/services/sendEmail");
 const mailSender = require("../../utils/services/mailing");
