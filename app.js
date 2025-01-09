@@ -75,12 +75,13 @@ res.status(500).json({
 const connetDbAndServer = async () => {
         console.log("code ran")
     try {
-        const res = await dbConnetFunc()
+        console.log(`Db connected and server listening on port now ${PORT}`)
+       /*  const res = await dbConnetFunc()
         if(res){
             app.listen(PORT, function(){
                 console.log(`Db connected and server listening on port now ${PORT}`)
             })
-        }
+        } */
         
     } catch (error) {
         console.error(`Error: ${error.message}`);
