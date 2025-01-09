@@ -72,9 +72,9 @@ res.status(500).json({
 
 })
 
-const connetDbAndServer = () => {
-        console.log("code ran")
-    /* try {
+const connetDbAndServer = async () => {
+     
+    try {
         const res = await dbConnetFunc()
         if(res){
             app.listen(PORT, function(){
@@ -85,7 +85,7 @@ const connetDbAndServer = () => {
     } catch (error) {
         console.error(`Error: ${error.message}`);
         process.exit(1);
-    } */
+    }
 }
 
 
