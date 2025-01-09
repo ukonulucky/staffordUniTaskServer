@@ -39,7 +39,7 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
     const { email: createdEmail } = registeredUser
     /* endpoint to verify email */
     const emailVerificationToken = registeredUser.createEmailVerificationToken()
-     const verifyEmailEndpoint = process.env.SERVER_URL + "/emailVerify/" + createdEmail + "/"+ emailVerificationToken 
+     const verifyEmailEndpoint = process.env.SERVER_URL + "/api/v1/user" + "/emailVerify/" + createdEmail + "/"+ emailVerificationToken 
     const message = "Please click here " + verifyEmailEndpoint + " to verify your email"
     /* 
        const { subject,to, emailTemplate} = options; 

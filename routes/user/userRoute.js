@@ -9,13 +9,14 @@ userRouter.post("/register", userRegisterController)
 userRouter.post("/login", userLoginController)
 userRouter.post("/forgotPassword", forgotPasswordController)
 userRouter.post("/logout", logOutUserController)
-userRouter.get("/emailVerify/:email/:token", verifyEmailController)
 userRouter.post("/changePassword", changePasswordController)
 
 
 userRouter.get("/authenticate", userAuthticateController)
 userRouter.get("/allUsers", getAllUsersController)
+userRouter.get("/emailVerify/:email/:token", verifyEmailController)
 userRouter.get("/:id", getSingleUserController)
+
 
 
 module.exports = userRouter
