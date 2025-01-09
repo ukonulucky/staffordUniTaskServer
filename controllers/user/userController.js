@@ -106,7 +106,7 @@ const verifyEmailController = expressAsyncHandler(async(req, res) => {
     foundUser.accountVerificationToken = null
     await foundUser.save()
   const url = process.env.CLIENT_URL + "/emailVerified"
-    res.redirect(process.env.CLIENT_URL)
+    res.redirect(url)
 
 })
 
