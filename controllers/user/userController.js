@@ -292,7 +292,7 @@ sendBrevoEmail(option)
    /*  mailSender() */
     res.status(200).json({
         error: false,
-        message: "Hi, a chnage passwoord OTP has been sent to your mail", 
+        message: "Hi, a change password OTP has been sent to your mail", 
         meta: message
     })
 
