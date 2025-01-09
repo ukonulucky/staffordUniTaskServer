@@ -10,11 +10,8 @@ const cookieParser = require("cookie-parser")
 
 // from my application
 const dbConnetFunc = require('./config/db/dbConnect');
-/* const postRouter = require("./route/post/postRoute");
-const { userRegisterController } = require("./controller/user/userController");
 
- */
-// form my application
+
 
 const userRouter = require("./routes/user/userRoute");
 const restaurantRouter = require("./routes/restaurant/restaurant");
@@ -42,14 +39,8 @@ app.use(cors(corsOptions))
 
 
 // Routes
-/* app.use("/api/v1/posts",postRouter)
 
- */
-/* app.use((req, res, next) => {
-    res.status(404).json({
-        message:"route not found"
-    })
-}) */
+
 
   
 
