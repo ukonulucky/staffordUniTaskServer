@@ -71,7 +71,7 @@ const getSingleFoodController = expressAsyncHandler(async(req, res) => {
    })
  }
 
- const foodFound = await restaurantModel.findById(id)
+ const foodFound = await foodModel.findById(id)
  if(!foodFound){
      return res.status(404).json({
       status:"false",
