@@ -59,10 +59,10 @@ const getAllFoodController = expressAsyncHandler(async(req,res) => {
     throw new Error(error) 
   }
 })
-const getSingleRestaurantController = expressAsyncHandler(async(req, res) => {
+const getSingleFoodController = expressAsyncHandler(async(req, res) => {
     const { id } = req.params
    
-    const isIdVallid = isValidObjectId(id)
+    const isIdVallid = isValidObjectId(id.toString())
     console.log("id passed", id, isIdVallid)
  if(!id || !isIdVallid){
   return res.status(404).json({
@@ -71,20 +71,20 @@ const getSingleRestaurantController = expressAsyncHandler(async(req, res) => {
    })
  }
 
- const restaurantFound = await restaurantModel.findById(id)
- if(!restaurantFound){
+ const foodFound = await restaurantModel.findById(id)
+ if(!foodFound){
      return res.status(404).json({
       status:"false",
-      message:"restaurant not found"
+      message:"food not found"
      })
  }
 
  return res.status(200).json({
   status:"success", 
-  user: restaurantFound
+  food: foodFound
  })
 })
 
 
 
-module.exports = { addFoodController, getAllFoodController };
+module.exports = { addFoodController, getAllFoodController, getSingleFoodController };

@@ -55,9 +55,11 @@ const getAllRestaurantController= expressAsyncHandler(async(req,res) => {
   }
 })
 const getSingleRestaurantController = expressAsyncHandler(async(req, res) => {
-    const { id } = req.params
+     const { id } = req.params
+    
+console.log("id passed",id)
    
-    const isIdVallid = isValidObjectId(id)
+    const isIdVallid = isValidObjectId(id.toString())
     console.log("id passed", id, isIdVallid)
  if(!id || !isIdVallid){
   return res.status(404).json({

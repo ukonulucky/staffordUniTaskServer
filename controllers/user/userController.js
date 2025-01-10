@@ -218,7 +218,7 @@ const getAllUsersController = expressAsyncHandler(async (req, res) => {
 
 const getSingleUserController = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
-  const isIdVallid = isValidObjectId(id);
+  const isIdVallid = isValidObjectId(id.toString());
   if (!id || !isIdVallid) {
     return res.status(404).json({
       status: "false",
