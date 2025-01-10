@@ -11,6 +11,7 @@ const foodModel = require("../../model/food");
 // add food to restaurant controller
 const addFoodController = expressAsyncHandler(async (req, res) => {
     // check if restaurant details are passed correctly
+
     const { restaurantId,foodName, foodDescription, price,category } = req.body;
   if (!restaurantId || !foodName || !foodDescription || !price || !imageUrl || !category || !req.file) {
     throw new Error("Missing credentials");
@@ -19,7 +20,9 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
 
   
   
- 
+    if (!isValidObjectId(restaurantId)) { 
+ throw new error("Invalid store")
+    }
 
   // find if user already exist
 
