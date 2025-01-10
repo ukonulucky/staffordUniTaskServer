@@ -26,7 +26,7 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
 
   // find if user already exist
 
-  const foundRestaurant = await restaurantModel.findById({ restaurantId });
+  const foundRestaurant = await restaurantModel.findById( restaurantId );
 
   if (!foundRestaurant) {
     throw new Error("Restaurant name does not exists");
