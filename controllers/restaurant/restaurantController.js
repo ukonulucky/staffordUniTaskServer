@@ -18,8 +18,7 @@ const restaurantRegisterController = expressAsyncHandler(async (req, res) => {
 const imageUrl = req?.file?.path.toString()
     console.log("file sent", req.body,req.file)
   const { restaurantName,about, location, phone } = req.body;
-  
- 
+
 
   // find if user already exist
 
@@ -40,10 +39,6 @@ const imageUrl = req?.file?.path.toString()
     data: registeredRestaurant,
   });
 });
-
-
-
-
 
 
 const getAllRestaurantController= expressAsyncHandler(async(req,res) => {
