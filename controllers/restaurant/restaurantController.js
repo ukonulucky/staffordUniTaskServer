@@ -10,7 +10,7 @@ const isValidObjectId = require("../../utils/mongooseIdValidity");
 // register restaurant controller
 const restaurantRegisterController = expressAsyncHandler(async (req, res) => {
 
-const imageUrl = req.file.path.toString()
+const imageUrl = req?.file?.path.toString()
     console.log("file sent", req.body,req.file)
   const { restaurantName,about, location, phone } = req.body;
   

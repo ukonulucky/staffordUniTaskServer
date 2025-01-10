@@ -10,14 +10,15 @@ const foodModel = require("../../model/food");
 
 // add food to restaurant controller
 const addFoodController = expressAsyncHandler(async (req, res) => {
- const imageUrl = req.file
+     // check if restaurant details are passed correctly
+  if (!restaurantId || !foodName || !foodDescription || !price || !imageUrl || !category || !req.file) {
+    throw new Error("Missing credentials");
+  }
+ const imageUrl = req.file.path
 
   const { restaurantId,foodName, foodDescription, price,category } = req.body;
   
-  // check if restaurant details are passed correctly
-  if (!restaurantId || !foodName || !foodDescription || !price || !imageUrl || !category) {
-    throw new Error("Missing credentials");
-  }
+ 
 
   // find if user already exist
 
@@ -40,13 +41,14 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
 
 
 
-const getAllRestaurantController= expressAsyncHandler(async(req,res) => {
+const getAllFoodController = expressAsyncHandler(async(req,res) => {
   try {
 
-    const restaurants = await restaurantModel.find()
+    const  foods = await foodModel.find()
     return res.status(200).json({
       status:"success",
-      restaurants 
+        error: false,
+       foods
     })
     
   } catch (error) {
@@ -81,4 +83,4 @@ const getSingleRestaurantController = expressAsyncHandler(async(req, res) => {
 
 
 
-module.exports = { restaurantRegisterController, getAllRestaurantController, getSingleRestaurantController };
+module.exports = { addFoodController, getAllFoodController };
