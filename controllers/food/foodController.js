@@ -13,12 +13,12 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
     // check if restaurant details are passed correctly
 
     const { restaurantId,foodName, foodDescription, price,category } = req.body;
-  if (!restaurantId || !foodName || !foodDescription || !price || !imageUrl || !category || !req.file) {
+  if (!restaurantId || !foodName || !foodDescription || !price || !category || !req.file) {
     throw new Error("Missing credentials");
   }
- const imageUrl = req.file.path
 
-  
+
+  const imageUrl = req.file.path
   
     if (!isValidObjectId(restaurantId)) { 
  throw new error("Invalid store")
