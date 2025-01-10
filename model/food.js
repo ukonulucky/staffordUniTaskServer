@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 
  const foodSchema = new mongoose.Schema({
-    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant', 
-   required: true },
+     restaurantId: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: 'Restaurant', 
+         required: true
+     },
     foodName: { type: String, required: true, trim: true },
     foodDescription: { type: String, required: true, trim: true }, 
    price: { type: Number, required: true, min: 0 },

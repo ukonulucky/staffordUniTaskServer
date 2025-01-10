@@ -33,7 +33,7 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
   }
     
     const newFood = await foodModel.create({
-        restaurantId,foodName, foodDescription, price, image: imageUrl, category
+        restaurantId: foundRestaurant._id,foodName, foodDescription, price, image: imageUrl, category
     })
 
   return res.status(201).json({
