@@ -10,6 +10,8 @@ const isValidObjectId = require("../../utils/mongooseIdValidity");
 // register restaurant controller
 const restaurantRegisterController = expressAsyncHandler(async (req, res) => {
 
+
+    const { restaurantName,about, location, phone } = req.body;
      // check if restaurant details are passed correctly
   if (!restaurantName || !about || !location || !phone || !req.file) {
     throw new Error("Missing credentials");
@@ -17,7 +19,7 @@ const restaurantRegisterController = expressAsyncHandler(async (req, res) => {
 
 const imageUrl = req?.file?.path.toString()
     console.log("file sent", req.body,req.file)
-  const { restaurantName,about, location, phone } = req.body;
+  
 
 
   // find if user already exist
