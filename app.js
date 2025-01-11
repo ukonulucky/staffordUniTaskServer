@@ -17,6 +17,7 @@ const userRouter = require("./routes/user/userRoute");
 const restaurantRouter = require("./routes/restaurant/restaurant");
 const foodRouter = require("./routes/food/food");
 const reviewRouter = require("./routes/review/review");
+const adminRouter = require("./routes/admin/admin");
 
 
 const PORT = process.env.PORT || 5000
@@ -44,7 +45,8 @@ app.use(cors(corsOptions))
 
 
 
- 
+app.use("/api/v1/admin", adminRouter)
+
 
 app.use("/api/v1/food", foodRouter)
 

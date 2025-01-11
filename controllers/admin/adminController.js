@@ -1,6 +1,7 @@
 const expressAsyncHandler = require("express-async-handler");
 
 const isValidObjectId = require("../../utils/mongooseIdValidity");
+const restaurantModel = require("../../model/restaurant");
 
 
 
@@ -8,30 +9,35 @@ const isValidObjectId = require("../../utils/mongooseIdValidity");
 
 
 // register restaurant controller
-const activateRestaurantController = expressAsyncHandler(async (req, res) => {
+const activateRestaurantAdminController = expressAsyncHandler(async (req, res) => {
 
-  const { restaurantName,about, location, phone } = req.body;
+  const { restaurantId } = req.params;
 
   // check if restaurant details are passed correctly
-  if (!restaurantName || !about || !location || !phone) {
-    throw new Error("Missing credentials");
-  }
+  if (!isValidObjectId(restaurantId.toString())) { 
+    throw new error("Invalid restaurant Id")
+       }
 
   // find if user already exist
 
-  const foundRestaurant = await restaurantModel.findOne({ restaurantName });
+    const restaurant = await restaurantModel.findById(restaurantId);
+    const { restaurantStatus, fullName } = restaurant
+    if (restaurantStatus === "approved") {
+        res.status(200).json({
+            status: "success",
+            message: "Restaurant allready approved",
+          });
+    return 
+    }
 
-  if (foundRestaurant) {
-    throw new Error("Restaurant name already exists");
-  }
+    restaurant.restaurantStatus = "approved"
+
+    restaurant.save()
     
-    const registeredRestaurant = await restaurantModel.create({
-        restaurantName,about, location, phone
-    })
 
   return res.status(201).json({
     status: "success",
-    message: "Restaurant registered successfully",
+    message: "Restaurant approved successfully",
     data: registeredRestaurant,
   });
 });
@@ -82,4 +88,4 @@ const getSingleRestaurantController = expressAsyncHandler(async(req, res) => {
 
 
 
-module.exports = { restaurantRegisterController, getAllRestaurantController, getSingleRestaurantController };
+module.exports = { activateRestaurantAdminController };

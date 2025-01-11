@@ -126,7 +126,6 @@ const userLoginController = expressAsyncHandler(async (req, res, next) => {
   }
   const isPasswordCorrect = await user.comparePassword(password);
 
-  console.log(isPasswordCorrect, "value obtained");
   if (!user || !isPasswordCorrect) {
     throw new Error("Invalid login credential");
   }
@@ -189,7 +188,8 @@ const userAuthticateController = expressAsyncHandler(async (req, res) => {
     const foundUser = await UserModel.findById(id);
     if (!foundUser) {
       return res.status(401).json({
-        isAuthenticated: false,
+          isAuthenticated: false,
+          user: "user not logged in"
       });
     }
     return res.status(200).json({

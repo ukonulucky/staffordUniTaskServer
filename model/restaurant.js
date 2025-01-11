@@ -11,7 +11,12 @@ const restaurantSchema = new mongoose.Schema({
     type: String,
     enum: ["pending", "approved", "deleted"],
     default: "pending",
-  },
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
   phone: { type: Number, default: null }
 },  { timestamps: true });
 const restaurantModel = mongoose.model("Restaurant", restaurantSchema);

@@ -1,10 +1,11 @@
 const express = require("express");
 const { createReviewController, getAllReviewsController, getSingleReviewController, deleteAllReviewController, deleteSingleReviewController } = require("../../controllers/review/reviewController");
+const authenticateJWT = require("../../middleware/authenticateUser");
 
 const reviewRouter = express.Router();
 
 /* create review */
-reviewRouter.post("/create", createReviewController); 
+reviewRouter.post("/create", authenticateJWT,createReviewController); 
 
 /* get all review */
 reviewRouter.get("/reviews", getAllReviewsController);
