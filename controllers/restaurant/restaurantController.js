@@ -80,7 +80,7 @@ const imageUrl = req?.file?.path.toString()
 const getAllRestaurantController= expressAsyncHandler(async(req,res) => {
   try {
 
-    const restaurants = await restaurantModel.find()
+    const restaurants = await restaurantModel.find().populate("userId").exec()
     return res.status(200).json({
       status:"success",
       restaurants 
