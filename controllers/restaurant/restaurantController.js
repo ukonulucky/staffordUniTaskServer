@@ -49,7 +49,7 @@ const imageUrl = req?.file?.path.toString()
     const option = {
         subject: "Restaurant creation",
         emailTemplate:
-          "Hello " + fullName + "your restaurant " + restaurantName + " has been created but still on pending approval by the admin" ,
+          "Hello " + fullName + " your restaurant " + restaurantName + " has been created but still on pending approval by the admin" ,
         to: [
           {
             email: email,
