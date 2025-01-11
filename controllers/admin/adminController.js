@@ -37,8 +37,7 @@ const activateRestaurantAdminController = expressAsyncHandler(async (req, res) =
 
   return res.status(201).json({
     status: "success",
-    message: "Restaurant approved successfully",
-    data: registeredRestaurant,
+    message: "Restaurant approved successfully"
   });
 });
 
