@@ -159,5 +159,51 @@ return res.status(404).json({
   });
 });
 
+const deleteRestaurantController = expressAsyncHandler(async (req, res) => {
 
-module.exports = { restaurantRegisterController, getAllRestaurantController, getSingleRestaurantController,getUserRestaurantController  };
+
+    const { restaurantId} = req.body;
+     // check if restaurant details are passed correctly
+  if (!restaurantId) {
+    throw new Error("Missing credentials");
+  }
+
+  const isIdVallid = isValidObjectId(restaurantId.toString())
+
+if(!isIdVallid){
+return res.status(404).json({
+  status:"false",
+  message:"Invalid restaurantId"
+ })
+}
+
+ 
+
+  // find if user already exist
+
+   
+    const foundRestaurant = await restaurantModel.findOneAndDelete({
+        _id: restaurantId
+      });
+
+  if (!foundRestaurant) {
+    throw new Error("Failed to delete restaurant");
+  }
+   
+    
+   
+  return res.status(200).json({
+    status: "success",
+    message: "Restaurant deleted successfully",
+  });
+});
+
+
+
+
+
+
+
+
+
+module.exports = { restaurantRegisterController, getAllRestaurantController, getSingleRestaurantController,getUserRestaurantController ,deleteRestaurantController };
