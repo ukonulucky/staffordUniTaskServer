@@ -36,11 +36,11 @@ const imageUrl = req?.file?.path.toString()
 
    
   
-    const foundRestaurantName = await restaurantModel.find({
+    const foundRestaurantName = await restaurantModel.findOne({
    restaurantName
     })
 
-    const foundRestaurantUserId = await restaurantModel.find({
+    const foundRestaurantUserId = await restaurantModel.findOne({
         userId
          })
 
