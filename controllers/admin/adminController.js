@@ -18,7 +18,7 @@ const activateRestaurantAdminController = expressAsyncHandler(
     // find if user already exist
 
     const restaurant = await restaurantModel.findById(restaurantId).populate("userId").exec();
-        const { restaurantStatus, userId, restaurantName, userId: { 
+        const { restaurantStatus, restaurantName, userId: { 
             fullName, email
         } } = restaurant;
 
