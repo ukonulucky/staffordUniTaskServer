@@ -1,6 +1,8 @@
 const expressAsyncHandler = require("express-async-handler");
 const restaurantModel = require("../../model/restaurant");
 const isValidObjectId = require("../../utils/mongooseIdValidity");
+const UserModel = require("../../model/user");
+const sendBrevoEmail = require("../../utils/services/mailSender");
 
 
 
@@ -43,6 +45,20 @@ const imageUrl = req?.file?.path.toString()
         gallery:imageUrl, userId
     })
 
+    const { fullName, email} = await UserModel.findById(userId)
+    const option = {
+        subject: "Restaurant creation",
+        emailTemplate:
+          "Hello " + fullName + "your restaurant " + restaurantName + " has been created but still on pending approval by the admin" ,
+        to: [
+          {
+            email: email,
+            name: fullName,
+          },
+        ],
+      };
+    
+      sendBrevoEmail(option);
   return res.status(201).json({
     status: "success",
     message: "Restaurant registered successfully",
