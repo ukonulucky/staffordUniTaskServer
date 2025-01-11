@@ -142,7 +142,7 @@ return res.status(404).json({
   // find if user already exist
 
    
-    const foundRestaurant = await restaurantModel.find({
+    const foundRestaurant = await restaurantModel.findOne({
         userId
       });
 
