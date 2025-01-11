@@ -95,4 +95,59 @@ const getSingleRestaurantController = expressAsyncHandler(async (req, res) => {
   });
 });
 
+
+const approveCommentAdminController = expressAsyncHandler(
+    async (req, res) => {
+      const { commentId } = req.params;
+  
+      // check if restaurant details are passed correctly
+      if (!isValidObjectId(commentId.toString())) {
+        throw new error("Invalid commentId Id");
+      }
+  
+      // find if user already exist
+  
+      const restaurant = await commnetModel.findById(commnentId);
+      const { restaurantStatus, userId, restaurantName } = restaurant;
+  
+      const { fullName, email } = await UserModel.findById(userId);
+  
+      if (restaurantStatus === "approved") {
+        res.status(200).json({
+          status: "success",
+          message: "Restaurant allready approved",
+        });
+        return;
+      }
+  
+      restaurant.restaurantStatus = "approved";
+  
+      restaurant.save();
+  
+      const option = {
+        subject: "Restaurant Approved",
+        emailTemplate:
+          "Congratulations " +
+          fullName +
+          " your restaurant " +
+          restaurantName +
+          " has been approved.",
+        to: [
+          {
+            email: email,
+            name: fullName,
+          },
+        ],
+      };
+  
+      sendBrevoEmail(option);
+      return res.status(201).json({
+        status: "success",
+        message: "Restaurant approved successfully",
+      });
+    }
+  );
+  
+
+
 module.exports = { activateRestaurantAdminController };
