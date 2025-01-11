@@ -12,7 +12,7 @@ const activateRestaurantAdminController = expressAsyncHandler(
 
     // check if restaurant details are passed correctly
     if (!isValidObjectId(restaurantId.toString())) {
-      throw new error("Invalid restaurant Id");
+      throw new Error("Invalid restaurant Id");
     }
 
     // find if user already exist
