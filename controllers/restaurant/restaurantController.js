@@ -43,7 +43,7 @@ const imageUrl = req?.file?.path.toString()
     const foundRestaurantUserId = await restaurantModel.findOne({
         userId
          })
-console.log("this is the foundRestaurantName", foundRestaurantName)
+
   if (foundRestaurantName ) {
     throw new Error("Restaurant name  already exists.");
   }
