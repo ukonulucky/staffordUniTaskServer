@@ -34,10 +34,16 @@ const imageUrl = req?.file?.path.toString()
 
   // find if user already exist
 
-  const foundRestaurant = await restaurantModel.findOne({ restaurantName });
+   
+    const foundRestaurant = await restaurantModel.find({
+        $or: [
+          { restaurantName : { $exists: true } },  // Check if field1 exists
+          { userId: { $exists: true } },  // Check if field2 exists
+        ],
+      });
 
-  if (foundRestaurant) {
-    throw new Error("Restaurant name already exists");
+  if (foundRestaurant.lenght > 0) {
+    throw new Error("Restaurant name  already exists or user already has a restaurant");
   }
     
     const registeredRestaurant = await restaurantModel.create({
@@ -109,5 +115,45 @@ console.log("id passed",id)
 })
 
 
+const getUserRestaurantController = expressAsyncHandler(async (req, res) => {
 
-module.exports = { restaurantRegisterController, getAllRestaurantController, getSingleRestaurantController };
+
+    const { userId } = req.params;
+     // check if restaurant details are passed correctly
+  if (!userId) {
+    throw new Error("Missing credentials");
+  }
+
+  const isIdVallid = isValidObjectId(userId.toString())
+
+if(!isIdVallid){
+return res.status(404).json({
+  status:"false",
+  message:"Invalid UserId"
+ })
+}
+
+ 
+
+  // find if user already exist
+
+   
+    const foundRestaurant = await restaurantModel.find({
+        userId
+      });
+
+  if (!foundRestaurant) {
+    throw new Error("Restaurant does not exist for user");
+  }
+   
+    
+   
+  return res.status(201).json({
+    status: "success",
+    message: "Restaurant retreived successfully",
+    data: foundRestaurant
+  });
+});
+
+
+module.exports = { restaurantRegisterController, getAllRestaurantController, getSingleRestaurantController,getUserRestaurantController  };
