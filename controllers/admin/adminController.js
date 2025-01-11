@@ -2,6 +2,7 @@ const expressAsyncHandler = require("express-async-handler");
 
 const isValidObjectId = require("../../utils/mongooseIdValidity");
 const restaurantModel = require("../../model/restaurant");
+const UserModel = require("../../model/user");
 
 
 
