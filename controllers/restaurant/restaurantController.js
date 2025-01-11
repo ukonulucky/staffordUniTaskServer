@@ -35,17 +35,21 @@ const imageUrl = req?.file?.path.toString()
   // find if user already exist
 
    
-    const foundRestaurant = await restaurantModel.find({
-        $or: [
-          { restaurantName : { $exists: true } },  // Check if field1 exists
-          { userId: { $exists: true } },  // Check if field2 exists
-        ],
-      });
+  
+    const foundRestaurantName = await restaurantModel.find({
+   restaurantName
+    })
 
-  if (foundRestaurant.lenght > 0) {
-    throw new Error("Restaurant name  already exists or user already has a restaurant");
+    const foundRestaurantUserId = await restaurantModel.find({
+        userId
+         })
+
+  if (foundRestaurantName ) {
+    throw new Error("Restaurant name  already exists.");
   }
-    
+  if (foundRestaurantUserId ) {
+    throw new Error("User already has a restaurant");
+  }
     const registeredRestaurant = await restaurantModel.create({
         restaurantName, about, location, phone,
         gallery:imageUrl, userId
