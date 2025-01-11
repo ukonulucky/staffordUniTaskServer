@@ -17,12 +17,12 @@ const activateRestaurantAdminController = expressAsyncHandler(
 
     // find if user already exist
 
-    const restaurant = await restaurantModel.findById(restaurantId).populate("userId").exec();
+        const restaurant = await restaurantModel.findById(restaurantId).populate("userId").exec();
         const { restaurantStatus, restaurantName, userId: { 
             fullName, email
         } } = restaurant;
 
-   
+  
 
     if (restaurantStatus === "approved") {
       res.status(200).json({
