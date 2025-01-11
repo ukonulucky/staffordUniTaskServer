@@ -155,7 +155,7 @@ return res.status(404).json({
   return res.status(201).json({
     status: "success",
     message: "Restaurant retreived successfully",
-    data: foundRestaurant
+    restaurant: foundRestaurant
   });
 });
 
