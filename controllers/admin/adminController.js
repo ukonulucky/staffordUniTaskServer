@@ -21,7 +21,12 @@ const activateRestaurantAdminController = expressAsyncHandler(async (req, res) =
   // find if user already exist
 
     const restaurant = await restaurantModel.findById(restaurantId);
-    const { restaurantStatus, fullName } = restaurant
+    const { restaurantStatus, userId,restaurantName } = restaurant
+    
+    const { fullName, email } = await UserModel.findById(userId)
+    
+
+
     if (restaurantStatus === "approved") {
         res.status(200).json({
             status: "success",
@@ -34,7 +39,19 @@ const activateRestaurantAdminController = expressAsyncHandler(async (req, res) =
 
     restaurant.save()
     
+const option = {
+    subject: "Restaurant Activation",
+    emailTemplate:
+      "Congratulations " + fullName + "your restaurant "+ restaurantName +" has been approved." ,
+    to: [
+      {
+        email: email,
+        name: fullName,
+      },
+    ],
+  };
 
+  sendBrevoEmail(option);
   return res.status(201).json({
     status: "success",
     message: "Restaurant approved successfully"
