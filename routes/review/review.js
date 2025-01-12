@@ -8,9 +8,7 @@ const reviewRouter = express.Router();
 /* create review */
 reviewRouter.post("/create", createReviewController); 
 
-/* activate review controller */
 
-reviewRouter.post("/review/approve", activateReviewAdminController); 
 
 /* get all review */
 reviewRouter.get("/reviews", getAllReviewsController);
