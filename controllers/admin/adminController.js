@@ -73,6 +73,8 @@ const activateReviewAdminController = expressAsyncHandler(
 
         const review = await ReviewModel.findById(reviewId).populate("userId").exec();
         
+
+        console.log("review found", review)
         const { userId: { 
             fullName,
             email
@@ -95,7 +97,7 @@ const activateReviewAdminController = expressAsyncHandler(
         emailTemplate:
           "Congratulations " +
           fullName +
-          " your reviw has been approved.",
+          " your review has been approved.",
         to: [
           {
             email: email,
