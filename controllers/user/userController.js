@@ -10,7 +10,7 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
   const { email, password, fullName, role } = req.body;
 
   // check if email and password are sent
-  if (!email || !password) {
+  if (!email || !password || !fullName) {
     throw new Error("Missing credentials");
   }
 
