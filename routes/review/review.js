@@ -5,7 +5,7 @@ const authenticateJWT = require("../../middleware/authenticateUser");
 const reviewRouter = express.Router();
 
 /* create review */
-reviewRouter.post("/create", authenticateJWT,createReviewController); 
+reviewRouter.post("/create", createReviewController); 
 
 /* get all review */
 reviewRouter.get("/reviews", getAllReviewsController);
