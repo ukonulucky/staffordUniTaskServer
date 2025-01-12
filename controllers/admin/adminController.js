@@ -148,8 +148,37 @@ const approveCommentAdminController = expressAsyncHandler(
         message: "Restaurant approved successfully",
       });
     }
-  );
+);
+ 
+const deleteUserAdminController = expressAsyncHandler(
+    async (req, res) => {
+      const { userId } = req.params;
   
+        
+        if (!userId) { 
+   throw new Error("Missing credential")
+        }
+      // check if restaurant details are passed correctly
+      if (!isValidObjectId(userId.toString())) {
+        throw new error("Invalid user Id");
+      }
+  
+      const restaurant = await UserModel.findOneAndDelete({
+      _id: userId
+      });
+  
+      if(!restaurant){
+       throw new Error(`failed to delete user`)
+        }
+  
+      return res.status(201).json({
+        status: "success",
+        message: "User deleted successfuly",
+      });
+    }
+);
 
 
-module.exports = { activateRestaurantAdminController };
+
+
+module.exports = { activateRestaurantAdminController, deleteUserAdminController};

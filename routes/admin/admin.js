@@ -1,5 +1,5 @@
 const express = require("express");
-const { activateRestaurantAdminController } = require("../../controllers/admin/adminController");
+const { activateRestaurantAdminController, deleteUserAdminController } = require("../../controllers/admin/adminController");
 
 
 
@@ -7,6 +7,8 @@ const { activateRestaurantAdminController } = require("../../controllers/admin/a
 
 const adminRouter = express.Router();
 
- adminRouter.get("/activateRestaurant/:restaurantId", activateRestaurantAdminController); 
+adminRouter.get("/activateRestaurant/:restaurantId", activateRestaurantAdminController); 
+ 
+adminRouter.delete("/deleteUser/:userId", deleteUserAdminController); 
 
 module.exports = adminRouter;
