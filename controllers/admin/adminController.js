@@ -4,8 +4,9 @@ const isValidObjectId = require("../../utils/mongooseIdValidity");
 const restaurantModel = require("../../model/restaurant");
 const UserModel = require("../../model/user");
 const sendBrevoEmail = require("../../utils/services/mailSender");
+const ReviewModel = require("../../model/review");
 
-// register restaurant controller
+// activate restaurant controller
 const activateRestaurantAdminController = expressAsyncHandler(
   async (req, res) => {
     const { restaurantId } = req.params;
@@ -59,6 +60,55 @@ const activateRestaurantAdminController = expressAsyncHandler(
     });
   }
 );
+
+// activate review controller
+const activateReviewAdminController = expressAsyncHandler(
+    async (req, res) => {
+      const { reviewId } = req.body;
+  
+      // check if restaurant details are passed correctly
+      if (!isValidObjectId(reviewId.toString())) {
+        throw new Error("Invalid review Id");
+      }
+
+          const review = await ReviewModel.findById(reviewId).populate("userId").exec();
+        if (!review) { 
+            throw new Error("Review not found")
+        }
+
+        if (review.reviewStatus === "approved") { 
+          return  res.status(200).json({
+                status: "success",
+                message: "Review allready approved",
+              });
+        }
+        review.reviewStatus = "approved"
+        await review.save()
+  
+      const option = {
+        subject: "Review Approved",
+        emailTemplate:
+          "Congratulations " +
+          fullName +
+          " your reviw has been approved.",
+        to: [
+          {
+            email: email,
+            name: fullName,
+          },
+        ],
+      };
+  
+      sendBrevoEmail(option);
+      return res.status(201).json({
+        status: "success",
+        message: "Review approved successfully",
+      });
+     
+    }
+  );
+
+
 
 const getAllRestaurantController = expressAsyncHandler(async (req, res) => {
   try {
@@ -181,4 +231,4 @@ const deleteUserAdminController = expressAsyncHandler(
 
 
 
-module.exports = { activateRestaurantAdminController, deleteUserAdminController};
+module.exports = { activateRestaurantAdminController, deleteUserAdminController, activateReviewAdminController };

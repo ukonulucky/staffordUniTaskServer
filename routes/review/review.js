@@ -1,11 +1,16 @@
 const express = require("express");
 const { createReviewController, getAllReviewsController, getSingleReviewController, deleteAllReviewController, deleteSingleReviewController } = require("../../controllers/review/reviewController");
 const authenticateJWT = require("../../middleware/authenticateUser");
+const { activateReviewAdminController } = require("../../controllers/admin/adminController");
 
 const reviewRouter = express.Router();
 
 /* create review */
 reviewRouter.post("/create", createReviewController); 
+
+/* activate review controller */
+
+reviewRouter.post("/approve", activateReviewAdminController); 
 
 /* get all review */
 reviewRouter.get("/reviews", getAllReviewsController);
