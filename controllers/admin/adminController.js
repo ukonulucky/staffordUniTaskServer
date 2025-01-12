@@ -71,7 +71,12 @@ const activateReviewAdminController = expressAsyncHandler(
         throw new Error("Invalid review Id");
       }
 
-          const review = await ReviewModel.findById(reviewId).populate("userId").exec();
+        const review = await ReviewModel.findById(reviewId).populate("userId").exec();
+        
+        const { userId: { 
+            fullName,
+            email
+        } } = review
         if (!review) { 
             throw new Error("Review not found")
         }

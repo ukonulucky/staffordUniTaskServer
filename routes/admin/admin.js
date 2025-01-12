@@ -16,3 +16,6 @@ adminRouter.post("/review/approve", activateReviewAdminController);
 adminRouter.delete("/deleteUser/:userId", deleteUserAdminController); 
 
 module.exports = adminRouter;
+
+
+/* /api/v1/admin/reveiw/approve */
