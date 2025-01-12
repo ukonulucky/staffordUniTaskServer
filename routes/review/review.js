@@ -10,7 +10,7 @@ reviewRouter.post("/create", createReviewController);
 
 /* activate review controller */
 
-reviewRouter.post("/approve", activateReviewAdminController); 
+reviewRouter.post("/review/approve", activateReviewAdminController); 
 
 /* get all review */
 reviewRouter.get("/reviews", getAllReviewsController);
