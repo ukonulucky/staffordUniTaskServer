@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const reviewSchema = new mongoose.Schema(
   {
     restaurantId: {
-          type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",
       required: true,
     },
     userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true
-        },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
     rating: { type: Number, required: true, min: 1, max: 5 },
     reviewStatus: {
       type: String,
@@ -19,11 +19,10 @@ const reviewSchema = new mongoose.Schema(
       default: "pending",
     },
     comment: { type: String },
-    isDeleted:{
+    isDeleted: {
       type: Boolean,
       default: false
-      
-  }
+    }
   },
  
   { timestamps: true }

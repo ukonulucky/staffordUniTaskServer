@@ -8,7 +8,7 @@ const UserModel = require("../../model/user");
 const createReviewController = expressAsyncHandler(async (req, res) => {
   const { restaurantId, rating, comment, userId} = req.body;
 
-    console.log("this is the request body", req.body)
+
     
   // check if right parameter were sent
   if (!restaurantId || !rating || !comment || !userId) {
@@ -63,7 +63,6 @@ const createReviewController = expressAsyncHandler(async (req, res) => {
 const getAllReviewsController = expressAsyncHandler(async (req, res) => {
   try {
       const reviews = await ReviewModel.find().populate("userId").exec();
-      
       
     return res.status(201).json({
       status: "success",
