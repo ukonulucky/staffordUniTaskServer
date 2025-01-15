@@ -25,7 +25,12 @@ const mongoose = require("mongoose");
              "Seafood",
              "Soup & Salads"
            ], 
-     }
+     },
+     isDeleted:{
+        type: Boolean,
+        default: false
+        
+    }
  
  },
  { timestamps: true }

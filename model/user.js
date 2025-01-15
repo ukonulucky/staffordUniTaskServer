@@ -19,7 +19,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "user",
       enum: ["user", "admin", "restaurantOwner"]
-    }
+    },
+    isDeleted:{
+      type: Boolean,
+      default: false
+      
+  },
 
   },
 

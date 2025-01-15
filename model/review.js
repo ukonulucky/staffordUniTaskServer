@@ -19,7 +19,13 @@ const reviewSchema = new mongoose.Schema(
       default: "pending",
     },
     comment: { type: String },
+    isDeleted:{
+      type: Boolean,
+      default: false
+      
+  }
   },
+ 
   { timestamps: true }
 );
 const ReviewModel = mongoose.model("RestaurantReview", reviewSchema);

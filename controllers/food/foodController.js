@@ -43,6 +43,45 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
   });
 });
 
+/* updated food */
+
+const updateFoodController = expressAsyncHandler(async (req, res) => {
+  // check if restaurant details are passed correctly
+
+  const { foodName, foodDescription, price,category, foodId } = req.body;
+if (!foodName || !foodDescription || !price || !category || !req.file || !foodId) {
+  throw new Error("Missing credentials");
+}
+
+const isFoodIdVallid = isValidObjectId(foodId.toString());
+  
+if (!isFoodIdVallid) {
+  throw new Error("Invaild user or restaurant Id")
+ }
+const imageUrl = req.file.path
+
+
+
+ 
+
+const upDatedFood = await foodModel.findByIdAndUpdate(foodId,{
+      foodName, foodDescription, price, image: imageUrl, category
+  }, {
+    new: true
+  })
+
+
+  if (!upDatedFood) { 
+    throw new Error("Failed to update food")
+  }
+
+return res.status(201).json({
+  status: "success",
+  message: "Food updated successfully",
+  data: newFood
+});
+});
+
 
 
 const getAllFoodController = expressAsyncHandler(async(req,res) => {
@@ -87,4 +126,4 @@ const getSingleFoodController = expressAsyncHandler(async(req, res) => {
 
 
 
-module.exports = { addFoodController, getAllFoodController, getSingleFoodController };
+module.exports = { addFoodController, getAllFoodController, getSingleFoodController, updateFoodController};

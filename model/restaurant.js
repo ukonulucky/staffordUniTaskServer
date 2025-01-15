@@ -16,7 +16,12 @@ const restaurantSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    },
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
+    
+},
   phone: { type: Number, default: null }
 },  { timestamps: true });
 const restaurantModel = mongoose.model("Restaurant", restaurantSchema);
