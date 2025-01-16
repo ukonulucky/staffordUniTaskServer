@@ -57,7 +57,7 @@ const updateFoodController = expressAsyncHandler(async (req, res) => {
 
 
 if (!foodName || !foodDescription || !price || !category || !foodId || !req.file) {
-  throw new Error("Missing credentials");
+  throw new Error(`${foodName, foodDescription, price, category, foodId, req.file}`);
 }
 
 const imageUrl = req?.file?.path
