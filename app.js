@@ -27,7 +27,7 @@ const app = express();
 // cors configuration
 
 const corsOptions = {
-    origin:["https://staffordshire-project-web.vercel.app"],
+    origin:"*",
     methods: ["GET","HEAD","PUT","PATCH","POST","DELETE"],
     credentials: true, // Enable credentials (cookies, authorization headers, etc.)
 }
