@@ -18,7 +18,12 @@ const reviewSchema = new mongoose.Schema(
       enum: ["pending", "approved", "deleted"],
       default: "pending",
     },
-    comment: { type: String },
+    comment: {
+      type: mongoose.SchemaType.ObjectId,
+      ref: "Comment"
+      
+
+     },
     isDeleted: {
       type: Boolean,
       default: false
