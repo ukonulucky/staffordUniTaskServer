@@ -62,7 +62,8 @@ const createReviewController = expressAsyncHandler(async (req, res) => {
 
 const getAllReviewsController = expressAsyncHandler(async (req, res) => {
   try {
-      const reviews = await ReviewModel.find().populate("userId").populate("Restaurant").exec();
+    const reviews = await ReviewModel.find().populate("userId").populate("restaurantId").exec();
+
       
     return res.status(201).json({
       status: "success",
