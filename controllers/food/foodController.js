@@ -48,8 +48,11 @@ const addFoodController = expressAsyncHandler(async (req, res) => {
 const updateFoodController = expressAsyncHandler(async (req, res) => {
   // check if restaurant details are passed correctly
 
-  const { foodName, foodDescription, price,category, foodId } = req.body;
-if (!foodName || !foodDescription || !price || !category || !req.file || !foodId) {
+  const { foodName, foodDescription, price, category, foodId } = req.body;
+  
+  
+
+if (!foodName || !foodDescription || !price || !category || !foodId) {
   throw new Error("Missing credentials");
 }
 
