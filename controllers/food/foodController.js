@@ -78,10 +78,10 @@ const upDatedFood = await foodModel.findByIdAndUpdate(foodId,{
     throw new Error("Failed to update food")
   }
 
-return res.status(201).json({
+return res.status(200).json({
   status: "success",
   message: "Food updated successfully",
-  data: newFood
+  data: upDatedFood
 });
 });
 
