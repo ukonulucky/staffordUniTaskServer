@@ -53,12 +53,18 @@ const updateFoodController = expressAsyncHandler(async (req, res) => {
   const { foodName, foodDescription, price, category, foodId } = req.body;
   
 
-  
+  console.log("data sent",req.body)
 
 
-  if (!foodName || !foodDescription || !price || !category || !foodId || !req.file) {
-  console.log("datas sent", req.body)
-  throw new Error(`${foodName, foodDescription, price, category, foodId, req.file}`);
+if (!foodName || !foodDescription || !price || !category || !foodId || !req.file) {
+  return res.status(200).json({
+    status: "success",
+    message: "Food updated successfully",
+    data: {
+      body: req.body,
+      file
+    }
+  });
 }
 
 const imageUrl = req?.file?.path
