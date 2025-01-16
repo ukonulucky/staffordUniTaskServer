@@ -50,9 +50,9 @@ const updateFoodController = expressAsyncHandler(async (req, res) => {
 
   const { foodName, foodDescription, price, category, foodId } = req.body;
   
-  
+  const imageUrl = req.file.path
 
-if (!foodName || !foodDescription || !price || !category || !foodId) {
+if (!foodName || !foodDescription || !price || !category || !foodId || !imageUrl) {
   throw new Error("Missing credentials");
 }
 
@@ -61,7 +61,7 @@ const isFoodIdVallid = isValidObjectId(foodId.toString());
 if (!isFoodIdVallid) {
   throw new Error("Invaild user or restaurant Id")
  }
-const imageUrl = req.file.path
+
 
 
 
