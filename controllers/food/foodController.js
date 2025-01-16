@@ -56,7 +56,8 @@ const updateFoodController = expressAsyncHandler(async (req, res) => {
   
 
 
-if (!foodName || !foodDescription || !price || !category || !foodId || !req.file) {
+  if (!foodName || !foodDescription || !price || !category || !foodId || !req.file) {
+  console.log("datas sent", req.body)
   throw new Error(`${foodName, foodDescription, price, category, foodId, req.file}`);
 }
 
