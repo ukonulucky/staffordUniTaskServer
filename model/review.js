@@ -19,8 +19,8 @@ const reviewSchema = new mongoose.Schema(
       default: "pending",
     },
     comment: {
-      type: mongoose.SchemaType.ObjectId,
-      ref: "Comment"
+      type: String,
+      required: true
       
 
      },
