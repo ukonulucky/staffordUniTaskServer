@@ -62,7 +62,7 @@ if (!foodName || !foodDescription || !price || !category || !foodId || !req.file
     message: "Food updated successfully",
     data: {
       body: req.body,
-      file
+      file:req.file
     }
   });
 }
