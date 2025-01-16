@@ -140,14 +140,23 @@ return res.status(404).json({
  
 
   // find if user already exist
-
+  const { role } = await UserModel.findById(userId);
+  if (role === "user" || role === "admin") { 
+    throw new Errro("Access denied")
+  }
    
     const foundRestaurant = await restaurantModel.findOne({
         userId
-      });
+      })
+
+  
 
   if (!foundRestaurant) {
-    throw new Error("Restaurant does not exist for user");
+    return res.status(201).json({
+      status: "No restaurant",
+      message: "No restaurant found",
+      restaurant: foundRestaurant
+    });
   }
    
     
