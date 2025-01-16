@@ -152,8 +152,8 @@ return res.status(404).json({
   
 
   if (!foundRestaurant) {
-    return res.status(201).json({
-      status: "No restaurant",
+    return res.status(200).json({
+      status: false,
       message: "No restaurant found",
       restaurant: foundRestaurant
     });
