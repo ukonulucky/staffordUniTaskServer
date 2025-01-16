@@ -18,7 +18,7 @@ const foodRouter = express.Router();
  foodRouter.post("/create", upload.single("file"), addFoodController); 
 foodRouter.get("/getAllFoods", getAllFoodController); 
 foodRouter.get("/:id", getSingleFoodController); 
-foodRouter.put("/update", updateFoodController); 
+foodRouter.put("/update", upload.single("file"),updateFoodController); 
 
 
 module.exports = foodRouter;
